@@ -37,14 +37,12 @@ bool GpioBase::init() {
     good = exportFile.good();
     exportFile.close();
 
-    DEBUG("GpioBase", "Exporting pin " << (unsigned)pin << (good ? "OK" : "FAIL"));
+    DEBUG("GpioBase", "Exporting pin " << (unsigned)pin << " .. " << (good ? "OK" : "FAIL"));
 
     /* Set pin direction */
-    std::string directionFileName = std::string("/sys/class/gpio/gpio") + std::to_string((unsigned)pin) + "/direction";
-    DEBUG("GpioBase", "direction file: "<< directionFileName);
-    std::ofstream directionFile(directionFileName);
+    std::ofstream directionFile(std::string("/sys/class/gpio/gpio") + std::to_string((unsigned)pin) + "/direction");
 
-    if(!exportFile.is_open()) {
+    if(!directionFile.is_open()) {
         throw std::runtime_error("Cant open gpio direction file");
     }
 
