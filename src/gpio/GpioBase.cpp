@@ -34,7 +34,7 @@ bool GpioBase::init() {
 
     exportFile << (unsigned) pin << std::endl;
 
-    good = !exportFile.bad();
+    good = exportFile.good();
     exportFile.close();
 
     DEBUG("GpioBase", "Exporting pin " << (unsigned)pin << " .. " << (good ? "OK" : "FAIL"));
@@ -53,11 +53,11 @@ bool GpioBase::init() {
         directionFile << "out" << std::endl;
     }
 
-    good = good && !directionFile.bad();
+    DEBUG("GpioBase", "Initializing pin " << (unsigned)pin << " .. " << (directionFile.good() ? "OK" : "FAIL"));
+
+    good = good && directionFile.good();
     directionFile.close();
-
-    DEBUG("GpioBase", "Initializing pin " << (unsigned)pin << " .. " << (good ? "OK" : "FAIL"));
-
+    
     return good;
 }
 
