@@ -21,6 +21,7 @@ void run() {
 
     /* Initialize motor */
     Gpio::Output motor(PIN_MOTOR);
+    motor.init();
     motor.off();
 
     /* Main control loop */
